@@ -21,8 +21,11 @@ public:
 	bool search(T val);
 	void delete_at(int index);
 	NodoT<T>* get_at(int index);
+
 	void print(); 
+
 	void sort();
+	NodoT<T>* Before(NodoT<T>* n);
 };
 
 
@@ -295,41 +298,85 @@ void ListaT<T>::sort() {
 		printf("No se puede acomodar una lista vacia\n");
 	}
 	else {
-		while (iterador != NULL) //Buscar en todo el contenedor.
-		{
-			
+		//while (iterador != NULL) //Buscar en todo el contenedor.
+		//{
+		//	
+		//
+		//	if (iterador->value > iterador->next->value)
+		//	{
+		//		NodoT<T>* temporal = iterador->next; //temporal es el apuntador del siguiente al iterador
+		//		iterador->next = iterador->next->next; //el apuntador del iterador es igual al elemento siguiente de iterador->next
+		//		temporal->next = iterador; //El siguiente del iterador es el iteador
+		//		//Si el iterador es el primero, se invierten los primeros dos numeros
+		//		if (iterador == first) {
+		//			
+		//			first = temporal;
+		//			
+		//		}
+		//	}
+		//	iterador = iterador->next;
+		//}
+		/*NodoT<T>* i, * j;
 
-			if (iterador->next == NULL) {
-				return;
+		for (i = first; i->next != NULL; i = i->next) {
+			for (j = i->next; j != NULL; j = j->next) {
+				if (i->value > j->value) {
+					NodoT<T>* temp = i->next;
+					i->next = j->next;
+					j->next = temp;
+				}
 			}
-			if (iterador->value > iterador->next->value)
-			{
-				NodoT<T>* temporal = iterador->next; //temporal es el apuntador del siguiente al iterador
-				iterador->next = iterador->next->next; //el apuntador del iterador es igual al elemento siguiente de iterador->next
-				temporal->next = iterador; //El siguiente del iterador es el iteador
+		}*/
 
-				//Si el iterador es el primero, se invierten los primeros dos numeros
-				if (iterador == first) {
-					
-					first = temporal;
-					
-				}
-				if (iterador->next == last) { //Si al que apunta el iterador es el último, haz esto
-					printf("El ultimo es mayor al penultimo que a su vez es el iterador\n");
-					
-					
+		NodoT<T>* iterador;
+		NodoT<T>* iterador2;
+		NodoT<T>* temp;
 
+		for (iterador = first; iterador->next != NULL; iterador = iterador->next) {
+			for (iterador2 = iterador->next; iterador2 != NULL; iterador2 = iterador2->next) {
+				
+				if (iterador->value > iterador2->value) 
+				{
+					if (iterador->next = iterador2) {
+						iterador->next = iterador2->next;
+						iterador2->next = iterador;				
+					}
+					else
+					{
+						temp = iterador->next;
+						iterador->next = iterador2->next;
+						iterador2->next = temp;
+
+						Before(iterador2)->next = iterador;						
+					}
+					if(Before(iterador) == NULL)
+					{
+						first = iterador2;
+					} else
+					{
+						Before(iterador)->next = iterador2;
+					}
 				}
-				else { //si al que apunta el iterador no es el primero ni el último, haz esto
-					printf("Nodo entre inicio y final\n");
-				}
+				
+				temp = iterador;
+				iterador = iterador2;
+				iterador2 = temp;
 			}
-			iterador = iterador->next;
-
 		}
 	}
-
-
-
-
 }
+
+template<class T>
+NodoT<T>* ListaT<T>::Before(NodoT<T>* n)
+{
+	if (n == first) {
+		return NULL;
+	}
+	else {
+		NodoT<T>* S;
+		for (S = first; S->next != n; S = S->next);
+			return S;
+	}
+}
+
+
