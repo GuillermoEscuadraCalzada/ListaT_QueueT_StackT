@@ -159,6 +159,7 @@
     <ClCompile Include="QueueT.cpp" />
     <ClCompile Include="Stack.cpp" />
     <ClCompile Include="StackT.cpp" />
+    <ClCompile Include="TreeT.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C3_Queue_Stack.h" />
@@ -169,6 +170,7 @@
     <ClInclude Include="QueueT.h" />
     <ClInclude Include="Stack.h" />
     <ClInclude Include="StackT.h" />
+    <ClInclude Include="TreeT.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
