@@ -428,91 +428,48 @@ template<class T>
 void ListaT<T>::InsertionSort()
 {
 
-	NodoT<T>* behind = nullptr, *ahead; 
-	NodoT<T>* it1;
+	NodoT<T> *ahead, *behind = nullptr; 
+	NodoT<T>* it1 = first;
 	NodoT<T>* it2;
 	bool swap = true;
-
+	
+	if(first == NULL)
+		printf("Can't insert sort this list.\n");
 	while(swap)
 	{
-		it1 = first;
-		it2 = it1->next;
-
+		
 		swap = false;
-		if(it1 == NULL)
-			printf("Can't sort this list, not enough elements.\n");
-		else
+		it2 = it1->next;
+		while(it1 != NULL)
 		{
-			while(it1->next != NULL) //Mientras que el siguiente al iterador no sea nulo...
+			if(it1 == first)
 			{
-				if(it1 == first) //Si el iterador es el primero.
+				if(it1->value > it2->value)
 				{
-					if(it1->value > it2->value)//Si el valor del primer iterador es mayor al segundo
-					{
-						first = it2; //El primero se vuelve el segundo
-						ahead = it2->next; //Ahead se vuelve en el siguiente del segundo iterador
-						it2->next = it1; //El siguiente del segundo iterador se vuelve el primer iterador
-						it1->next = ahead; //El siguienete del primer iterador se vuelve en ahead
-						it1 = first; //El primer iterador toma los valores de first
-						swap = true;
-					}
-					else
-					{
-						behind = it1; //Behind se vuelve en el primer iterador
-						it1 = it1->next; //Avanza el primer iterador
-						it2 = it2->next; //Avanza el segundo iterador
-					}
-
+					first = it2;
+					ahead = it2->next;
+					it2->next = it1;
+					it1->next = ahead;
+					//it1 = first;
+					swap = true;
 				}
-				else if(it1->value > it2->value) //Si el iterador 1 no es first y el valor del it1 es mayor a it2 ...
-				{
-					if(it2->value > behind->value) //Si el segundo iterador es mayor al valor de behind, sólo intercambia los valores
-					{
-					    behind->next = it2; //El siguiente de behind es el segundo iterador
-						ahead = it2->next; //Ahead guarda todos los valores que le siguen al segundo iterador
-						it2->next = it1; //El apuntador del iterador 2 apunta al primer iterador
-						it1->next = ahead; //El apuntador del iterador 1 apunta a ahead
-						behind = behind->next; //Behind avanza
-						swap = true;
-					}
-					else if(it2->value < behind->value) //Si el valor del iterador 2 es menor al de behind
-					{
-						//Primer cambio
-
-						behind->next = it2; //El apuntador de behind apunta al segundo iterador
-						ahead = it2->next; //Ahead se vuelve todo lo que le sigue al segundo iterador
-						it2->next = it1; //El apuntador del iterador 2 apunta al primer iterador
-						it1->next = ahead; //El apuntador del iterador 1 apunta a ahead;
-						
-						ahead = it2->next; //Ahead vuelve a apuntar a todo lo que sigue del iterador 2
-						//std::cout <<"Ahead value " + to_string(ahead->value) << std::endl;
-						//std::cout << "Behind next before swap " + to_string(behind->next->value) << "\n";
-					
-						behind->next = ahead; //El apuntador de behind se vuelve ahead
-						//std::cout << "Behind next after swap " + to_string(behind->next->value) << "\n\n";
-
-						it2->next = behind; //El apuntador del segundo iterador apunta a behind
-						//std::cout <<"It2->next value after swap " + to_string(it2->next->value) << "\n\n";
-						//std::cout  << it2->value << "\n";
-						
-						first = it2;
-						
-						swap = true;
-						
-					}
-				}
-				else
-				{
-					
-					behind = behind->next;
-					it1 = it1->next; 
-				}
+				behind = it1;
+				it1 = it1->next;
+			}
+			else if(it1->value > it2->value)
+			{
+				ahead = it2->next;
+				it2->next = it1;
+				it1->next = ahead;
+			}
+			else
+			{
 				
+				it1 = it1->next;
+				it2 = it2->next;
 			}
 		}
-
 	}
-	
 
 
 }
